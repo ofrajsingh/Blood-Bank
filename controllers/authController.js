@@ -2,23 +2,23 @@ const userModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 
 const registerController = async (req, res) => {
-    console.log(req.body,"RAJ");
-    // req.body.email= "ofrajsingh@gmail.com";
-    // req.body.password= "123456";
-    // req.body.role= "user";
-    // req.body.name= "Raj";
-    // req.body.address= "adsfdsg";
-    // req.body.phone= "123456789";
+  // req.body.email= "ofrajsingh@gmail.com";
+  // req.body.password= "123456";
+  // req.body.role= "user";
+  // req.body.name= "Raj";
+  // req.body.address= "adsfdsg";
+  // req.body.phone= "123456789";
   try {
     const existingUser = await userModel.findOne({ email: req.body.email });
     if (existingUser) {
       return res.status(200).send({
         success: false,
-        message: "User already exists",
+        message: "User already exists"
       });
     }
-
+    
     const salt = await bcrypt.genSalt(10);
+    console.log(req.body,"RAJ");
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashedPassword;
 
